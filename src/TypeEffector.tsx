@@ -4,7 +4,6 @@ import ssss from "./styleer/styleer.module.css";
 
 function TypeEffector({wordsList}:{wordsList:any}){
 
-
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [charIndex, setCharIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
