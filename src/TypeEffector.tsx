@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import ssss from "./styleer/styleer.module.css";
-const wordsArr: string[] = ["Life is like an open book", "anybody can read it"];
-const TypeEffect: React.FC = () => {
+
+
+function TypeEffector({wordsList}:{wordsList:any}){
+
+
   const [wordIndex, setWordIndex] = useState<number>(0);
   const [charIndex, setCharIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const dynamicTextRef = React.useRef<HTMLSpanElement>(null);
-  const [words,setWords] = useState<string[]>(wordsArr);
 
 
   useEffect(() => {
     const dynamicText = dynamicTextRef.current;
 
     if (dynamicText) {
-      const currentWord = words[wordIndex];
+      const currentWord = wordsList[wordIndex];
       const currentChar = currentWord.substring(0, charIndex);
       dynamicText.innerHTML = currentChar;
       dynamicText.classList.add("stop-blinking");
@@ -30,7 +32,7 @@ const TypeEffect: React.FC = () => {
           // If not deleting, wait for a pause before moving to the next word
           if (!isDeleting) {
             setTimeout(() => {
-              setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+              setWordIndex((prevIndex) => (prevIndex + 1) % wordsList.length);
             }, 4000); // Adjust this delay as needed
           }
         }
@@ -38,9 +40,9 @@ const TypeEffect: React.FC = () => {
 
       return () => clearTimeout(typeTimeout);
     }
-  }, [charIndex, isDeleting, wordIndex, words]);
+  }, [charIndex, isDeleting, wordIndex, wordsList]);
 
   return <h4 className={ssss.imTypingNow}><span ref={dynamicTextRef}></span></h4>;
 }
 
-export default TypeEffect;
+export default TypeEffector;
